@@ -1,56 +1,38 @@
+/* eslint-disable */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { prefetch, Head } from 'dace';
-import { fetchUsers } from './action';
-import reducer from './reducer';
+import { Head } from 'dace';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 import Layout from '../../layouts/default';
 
 const defaultProps = {
   users: []
 };
 
-function mapStateToProps(state) {
-  return { users: state.users.data };
-}
-
-@prefetch({
-  reducer,
-  promise: ({ store: { dispatch } }) => Promise.all([
-    dispatch(fetchUsers())
-  ])
-})
-@connect(mapStateToProps)
+// @prefetch({
+//   reducer,
+//   promise: ({ store: { dispatch } }) => Promise.all([
+//     dispatch(fetchUsers())
+//   ])
+// })
+@observer
 export default class Users extends Component {
-  static propTypes = {
-    users: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string
-    }))
-  };
-
-  static defaultProps = defaultProps;
-
-  head() {
-    const { users } = this.props;
-    return (
-      <Head>
-        <title>{`${users.length} Users Loaded`}</title>
-      </Head>
-    );
-  }
-
-  renderUsers() {
-    const { users } = this.props;
-    return users.map(user => <li key={user.id}>{user.name}</li>);
+  click() {
+    this.props.store.addItem('333');
   }
 
   render() {
     return (
       <Layout>
-        {this.head()}
         Here is a big list of users:
-        <ul>{this.renderUsers()}</ul>
+        <ul>
+        {
+          this.props.store.items.map(item => (<li>{item}</li>))
+        }
+        </ul>
+        <button onClick={this.click.bind(this)}>Add</button>
       </Layout>
     );
   }

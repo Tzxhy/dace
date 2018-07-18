@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider } from 'mobx-react';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
-import createStore from './redux/createStore';
+import Store from './store';
 import { isProduction } from './utils';
 
 const container = document.getElementById('root');
@@ -18,7 +18,8 @@ if (!isProduction) {
   window.React = React; // 为了调试方便
 }
 
-const store = createStore();
+const store = new Store(window.INITIAL_STATE);
+console.log('--store:', store);
 
 ReactDOM.hydrate(
   <Provider store={store}>

@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { connect } from 'react-redux';
+import { observer } from 'mobx-react';
 import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
 import { parse } from 'qs';
@@ -8,7 +8,7 @@ import { parse } from 'qs';
  * 网站入口组件
  * 服务器端和浏览器端渲染都会调用
  */
-@connect(state => state)
+@observer
 export default class App extends Component {
   static propTypes = {
     route: PropTypes.object.isRequired,

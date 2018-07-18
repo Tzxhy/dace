@@ -12,7 +12,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import getPort from 'get-port';
 import routes from './routes';
-import createStore from './redux/createStore';
+import Store from './store';
 import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
@@ -54,7 +54,9 @@ app.use(proxy('/api', {
 }));
 
 app.use(async (ctx) => {
-  const store = createStore();
+  const store = new Store();
+  store.addItem('foo');
+  store.addItem('bar');
   const promises = matchRoutes(routes(), ctx.path)
     .map(({ route, match }) => {
       const { getInitialProps } = route.component;

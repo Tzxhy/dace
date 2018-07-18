@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider } from 'mobx-react';
 import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
@@ -90,7 +90,7 @@ export default class Html extends Component {
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
-          <script dangerouslySetInnerHTML={{ __html: `window.firstRendering=true;window.INITIAL_STATE=${serialize(store.getState())};` }} charSet="UTF-8" />
+          <script dangerouslySetInnerHTML={{ __html: `window.firstRendering=true;window.INITIAL_STATE=${serialize(store.toJson())};` }} charSet="UTF-8" />
           {jsTags}
         </body>
       </html>
