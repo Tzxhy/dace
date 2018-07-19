@@ -6,3 +6,4 @@ export { default as isLoaded } from './utils/isLoaded';
 export { default as logger } from './utils/logger';
 export { Link } from 'react-router-dom';
 export { Helmet as Head } from 'react-helmet';
+export { default as createStore } from './store';
