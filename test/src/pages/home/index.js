@@ -1,15 +1,10 @@
 import React from 'react';
-import { Head, createStore } from 'dace';
+import { Head } from 'dace';
 import { observer } from 'mobx-react';
-// import Store from './store';
 import Layout from '../../layouts/default';
-
-const store = new Store(typeof window === 'object' ? window.INITIAL_STATE : {});
-console.log('--store:', store);
 
 /* eslint-disable */
 const Home = observer((props, context) => {
-  console.log('store:', store);
   return (
     <Layout>
       <Head>
@@ -19,7 +14,7 @@ const Home = observer((props, context) => {
       <p>Check out these awesome features</p>
       <ul>
       {
-        store.items.map(item => (<li>{item}</li>))
+        props.store.items.map(item => (<li>{item}</li>))
       }
       </ul>
     </Layout>

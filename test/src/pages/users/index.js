@@ -7,8 +7,6 @@ import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import Layout from '../../layouts/default';
 
-const store = new Store(typeof window === 'object' ? window.INITIAL_STATE : {});
-
 const defaultProps = {
   users: []
 };

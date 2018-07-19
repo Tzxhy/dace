@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
-// import Store from './store';
+import Store from './store';
 import { isProduction } from './utils';
 
 const container = document.getElementById('root');
@@ -18,13 +18,13 @@ if (!isProduction) {
   window.React = React; // 为了调试方便
 }
 
-// const store = new Store(window.INITIAL_STATE);
+const store = new Store(window.INITIAL_STATE);
 // console.log('--store:', store);
 
 ReactDOM.hydrate(
-  <Provider>
+  <Provider store={store}>
     <BrowserRouter>
-      {renderRoutes(routes())}
+      {renderRoutes(routes(), { store })}
     </BrowserRouter>
   </Provider>,
   container
